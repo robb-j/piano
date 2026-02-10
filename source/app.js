@@ -1,3 +1,5 @@
+import { Player } from "./player.js";
+
 // Common HTML elements
 const wrapper = document.getElementById("wrapper");
 const output = document.getElementById("output");
@@ -12,6 +14,38 @@ const MIDI_DOWN = 9;
 const MIDI_UP = 8;
 
 const NOTES = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"];
+
+const semitones = {
+  C: -9,
+  D: -7,
+  E: -5,
+  F: -4,
+  G: -2,
+  A: 0,
+  B: 2,
+};
+
+/** @param {string} input */
+function getFrequency(input) {
+  const note = input.slice(0, 1);
+
+  // const sharp = input.length === 3 && input.slice(1, 2) === "#";
+  const flat = input.length === 3 && input.slice(1, 2) === "b";
+  const offset = flat ? -1 : 0;
+
+  const octave = parseInt(input.slice(-1));
+
+  const semitone = semitones[note] + offset + (octave - 4) * 12;
+  return 440 * Math.pow(2, semitone / 12);
+}
+
+let _player = null;
+
+/** @returns {Player} */
+function getPlayer() {
+  if (!_player) _player = new Player();
+  return _player;
+}
 
 const ALL_NOTES = [
   "A0",
@@ -38,6 +72,8 @@ async function setup() {
   wrapper.append(piano);
   writeMessage("Loaded Piano");
 
+  // const some = new DigitalPiano(piano)
+
   return { piano };
 }
 
@@ -49,6 +85,7 @@ for (const key of piano.querySelectorAll("rect")) {
   key.addEventListener("click", () => {
     toggle(key.id);
     writeMessage("Picked: " + key.id);
+    getPlayer().playNote(getFrequency(key.id));
   });
 }
 
@@ -57,6 +94,7 @@ random.addEventListener("click", () => {
   const note = ALL_NOTES[Math.floor(Math.random() * ALL_NOTES.length)];
   clear();
   select(note);
+  getPlayer().playNote(getFrequency(note));
 });
 
 // Connect to Web MIDI
@@ -106,13 +144,17 @@ function parseMidiMessage(data) {
 /** @param {MIDIMessageEvent} event */
 function onMidiEvent(event) {
   const message = parseMidiMessage(event.data);
-  console.debug(event, message);
 
   // https://inspiredacoustics.com/en/MIDI_note_numbers_and_center_frequencies
   const note = ALL_NOTES[message.note - 21];
 
-  if (message.command === MIDI_DOWN) select(note);
-  if (message.command === MIDI_UP) deselect(note);
+  if (!note) return;
+
+  if (message.command === MIDI_DOWN) {
+    select(note);
+    getPlayer().playNote(getFrequency(note));
+  } else if (message.command === MIDI_UP) deselect(note);
+  // else console.log(message);
 }
 
 // Get a <rect> element from a piano key name
