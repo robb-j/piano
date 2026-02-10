@@ -1,0 +1,11 @@
+main {
+  padding: 1em;
+}
+
+svg [data-selected] {
+  fill: #5ad55a;
+}
+
+#output {
+  padding: 1em;
+}

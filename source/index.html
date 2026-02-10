@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MidiBoard</title>
+    <link rel="stylesheet" href="https://alembic.openlab.dev/labcoat.css" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header>Midi-Board</header>
+
+    <main>
+      <center-layout intrinsic>
+        <div class="flow">
+          <div id="wrapper"></div>
+
+          <center-layout>
+            <div class="flow">
+              <cluster-layout space="s0" align="center">
+                <button id="random">Pick random</button>
+                <button id="connect">Connect…</button>
+                <code id="midiState">MIDI: Not connected</code>
+              </cluster-layout>
+
+              <details open>
+                <summary>Output</summary>
+                <pre id="output"></pre>
+              </details>
+            </div>
+          </center-layout>
+        </div>
+      </center-layout>
+    </main>
+
+    <footer>
+      <p>Made by <a href="https://www.r0b.io">Rob</a></p>
+    </footer>
+
+    <script
+      type="module"
+      src="https://alembic.openlab.dev/everything.js"
+    ></script>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

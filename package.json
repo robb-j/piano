@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "start": "npx serve --listen=8080 source"
+  },
+  "devDependencies": {
+    "prettier": "^3.8.1",
+    "serve": "^14.2.5",
+    "typescript": "^5.9.3"
+  }
+}

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1560px" height="300px" viewBox="0 0 1560 300" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <title>piano</title>
+  <defs>
+    <path d="M0,0 L1560,0 L1560,300 L0,300 L0,0 Z" id="path-1"></path>
+  </defs>
+  <g id="piano" stroke="none" fill="none" xlink:href="#path-1" fill-rule="evenodd" stroke-width="1">
+    <g id="white" fill="#FFFFFF" stroke="#000000">
+      <rect id="A0" stroke-width="2" x="0" y="0" width="30" height="300"></rect>
+      <rect id="B0" stroke-width="2" x="30" y="0" width="30" height="300"></rect>
+      <rect id="C1" stroke-width="2" x="60" y="0" width="30" height="300"></rect>
+      <rect id="D1" stroke-width="2" x="90" y="0" width="30" height="300"></rect>
+      <rect id="E1" stroke-width="2" x="120" y="0" width="30" height="300"></rect>
+      <rect id="F1" stroke-width="2" x="150" y="0" width="30" height="300"></rect>
+      <rect id="G1" stroke-width="2" x="180" y="0" width="30" height="300"></rect>
+      <rect id="A1" stroke-width="2" x="210" y="0" width="30" height="300"></rect>
+      <rect id="B1" stroke-width="2" x="240" y="0" width="30" height="300"></rect>
+      <rect id="C2" stroke-width="2" x="270" y="0" width="30" height="300"></rect>
+      <rect id="D2" stroke-width="2" x="300" y="0" width="30" height="300"></rect>
+      <rect id="E2" stroke-width="2" x="330" y="0" width="30" height="300"></rect>
+      <rect id="F2" stroke-width="2" x="360" y="0" width="30" height="300"></rect>
+      <rect id="G2" stroke-width="2" x="390" y="0" width="30" height="300"></rect>
+      <rect id="A2" stroke-width="2" x="420" y="0" width="30" height="300"></rect>
+      <rect id="B2" stroke-width="2" x="450" y="0" width="30" height="300"></rect>
+      <rect id="C3" stroke-width="2" x="480" y="0" width="30" height="300"></rect>
+      <rect id="D3" stroke-width="2" x="510" y="0" width="30" height="300"></rect>
+      <rect id="E3" stroke-width="2" x="540" y="0" width="30" height="300"></rect>
+      <rect id="F3" stroke-width="2" x="570" y="0" width="30" height="300"></rect>
+      <rect id="G3" stroke-width="2" x="600" y="0" width="30" height="300"></rect>
+      <rect id="A3" stroke-width="2" x="630" y="0" width="30" height="300"></rect>
+      <rect id="B3" stroke-width="2" x="660" y="0" width="30" height="300"></rect>
+      <rect id="C4" stroke-width="2" x="690" y="0" width="30" height="300"></rect>
+      <rect id="D4" stroke-width="2" x="720" y="0" width="30" height="300"></rect>
+      <rect id="E4" stroke-width="2" x="750" y="0" width="30" height="300"></rect>
+      <rect id="F4" stroke-width="2" x="780" y="0" width="30" height="300"></rect>
+      <rect id="G4" stroke-width="2" x="810" y="0" width="30" height="300"></rect>
+      <rect id="A4" stroke-width="2" x="840" y="0" width="30" height="300"></rect>
+      <rect id="B4" stroke-width="2" x="870" y="0" width="30" height="300"></rect>
+      <rect id="C5" stroke-width="2" x="900" y="0" width="30" height="300"></rect>
+      <rect id="D5" stroke-width="2" x="930" y="0" width="30" height="300"></rect>
+      <rect id="E5" stroke-width="2" x="960" y="0" width="30" height="300"></rect>
+      <rect id="F5" stroke-width="2" x="990" y="0" width="30" height="300"></rect>
+      <rect id="G5" stroke-width="2" x="1020" y="0" width="30" height="300"></rect>
+      <rect id="A5" stroke-width="2" x="1050" y="0" width="30" height="300"></rect>
+      <rect id="B5" stroke-width="2" x="1080" y="0" width="30" height="300"></rect>
+      <rect id="C6" stroke-width="2" x="1110" y="0" width="30" height="300"></rect>
+      <rect id="D6" stroke-width="2" x="1140" y="0" width="30" height="300"></rect>
+      <rect id="E6" stroke-width="2" x="1170" y="0" width="30" height="300"></rect>
+      <rect id="F6" stroke-width="2" x="1200" y="0" width="30" height="300"></rect>
+      <rect id="G6" stroke-width="2" x="1230" y="0" width="30" height="300"></rect>
+      <rect id="A6" stroke-width="2" x="1260" y="0" width="30" height="300"></rect>
+      <rect id="B6" stroke-width="2" x="1290" y="0" width="30" height="300"></rect>
+      <rect id="C7" stroke-width="2" x="1320" y="0" width="30" height="300"></rect>
+      <rect id="D7" stroke-width="2" x="1350" y="0" width="30" height="300"></rect>
+      <rect id="E7" stroke-width="2" x="1380" y="0" width="30" height="300"></rect>
+      <rect id="F7" stroke-width="2" x="1410" y="0" width="30" height="300"></rect>
+      <rect id="G7" stroke-width="2" x="1440" y="0" width="30" height="300"></rect>
+      <rect id="A7" stroke-width="2" x="1470" y="0" width="30" height="300"></rect>
+      <rect id="B7" stroke-width="2" x="1500" y="0" width="30" height="300"></rect>
+      <rect id="C8" stroke-width="2" x="1530" y="0" width="30" height="300"></rect>
+    </g>
+    <g id="black" transform="translate(22.5, 0)" fill="#000000">
+      <rect id="Bb0" x="0" y="0" width="20" height="200"></rect>
+      <rect id="Db1" x="55" y="0" width="20" height="200"></rect>
+      <rect id="Eb1" x="90" y="0" width="20" height="200"></rect>
+      <rect id="Gb1" x="145" y="0" width="20" height="200"></rect>
+      <rect id="Ab1" x="177.5" y="0" width="20" height="200"></rect>
+      <rect id="Bb1" x="210" y="0" width="20" height="200"></rect>
+      <rect id="Db2" x="265" y="0" width="20" height="200"></rect>
+      <rect id="Eb2" x="300" y="0" width="20" height="200"></rect>
+      <rect id="Gb2" x="355" y="0" width="20" height="200"></rect>
+      <rect id="Ab2" x="387.5" y="0" width="20" height="200"></rect>
+      <rect id="Bb2" x="420" y="0" width="20" height="200"></rect>
+      <rect id="Db3" x="475" y="0" width="20" height="200"></rect>
+      <rect id="Eb3" x="510" y="0" width="20" height="200"></rect>
+      <rect id="Gb3" x="565" y="0" width="20" height="200"></rect>
+      <rect id="Ab3" x="597.5" y="0" width="20" height="200"></rect>
+      <rect id="Bb3" x="630" y="0" width="20" height="200"></rect>
+      <rect id="Db4" x="685" y="0" width="20" height="200"></rect>
+      <rect id="Eb4" x="720" y="0" width="20" height="200"></rect>
+      <rect id="Gb4" x="775" y="0" width="20" height="200"></rect>
+      <rect id="Ab4" x="807.5" y="0" width="20" height="200"></rect>
+      <rect id="Bb4" x="840" y="0" width="20" height="200"></rect>
+      <rect id="Db5" x="895" y="0" width="20" height="200"></rect>
+      <rect id="Eb5" x="930" y="0" width="20" height="200"></rect>
+      <rect id="Gb5" x="985" y="0" width="20" height="200"></rect>
+      <rect id="Ab5" x="1017.5" y="0" width="20" height="200"></rect>
+      <rect id="Bb5" x="1050" y="0" width="20" height="200"></rect>
+      <rect id="Db6" x="1105" y="0" width="20" height="200"></rect>
+      <rect id="Eb6" x="1140" y="0" width="20" height="200"></rect>
+      <rect id="Gb6" x="1195" y="0" width="20" height="200"></rect>
+      <rect id="Ab6" x="1227.5" y="0" width="20" height="200"></rect>
+      <rect id="Bb6" x="1260" y="0" width="20" height="200"></rect>
+      <rect id="Db7" x="1315" y="0" width="20" height="200"></rect>
+      <rect id="Eb7" x="1350" y="0" width="20" height="200"></rect>
+      <rect id="Gb7" x="1405" y="0" width="20" height="200"></rect>
+      <rect id="Ab7" x="1437.5" y="0" width="20" height="200"></rect>
+      <rect id="Bb7" x="1470" y="0" width="20" height="200"></rect>
+    </g>
+  </g>
+</svg>
