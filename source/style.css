@@ -9,3 +9,8 @@ svg [data-selected] {
 #output {
   padding: 1em;
 }
+
+svg {
+  max-width: calc(100vw - 1em);
+  height: auto;
+}
