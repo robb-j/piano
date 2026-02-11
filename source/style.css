@@ -2,7 +2,7 @@ main {
   padding: 1em;
 }
 
-svg [data-selected] {
+svg [aria-pressed="true"] {
   fill: #5ad55a;
 }
 

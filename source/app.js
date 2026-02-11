@@ -1,4 +1,6 @@
 import { Player } from "./player.js";
+import { Midi } from "./midi.js";
+import { DigitalPiano } from "./piano.js";
 
 // Common HTML elements
 const wrapper = document.getElementById("wrapper");
@@ -7,37 +9,11 @@ const random = document.getElementById("random");
 const connect = document.getElementById("connect");
 const midiState = document.getElementById("midiState");
 
-/** @type {MIDIAccess | null} */
+/** @type {Midi | null} */
 let midi = null;
 
 const MIDI_DOWN = 9;
 const MIDI_UP = 8;
-
-const NOTES = ["C", "Db", "D", "Eb", "E", "F", "Gb", "G", "Ab", "A", "Bb", "B"];
-
-const semitones = {
-  C: -9,
-  D: -7,
-  E: -5,
-  F: -4,
-  G: -2,
-  A: 0,
-  B: 2,
-};
-
-/** @param {string} input */
-function getFrequency(input) {
-  const note = input.slice(0, 1);
-
-  // const sharp = input.length === 3 && input.slice(1, 2) === "#";
-  const flat = input.length === 3 && input.slice(1, 2) === "b";
-  const offset = flat ? -1 : 0;
-
-  const octave = parseInt(input.slice(-1));
-
-  const semitone = semitones[note] + offset + (octave - 4) * 12;
-  return 440 * Math.pow(2, semitone / 12);
-}
 
 let _player = null;
 
@@ -47,154 +23,60 @@ function getPlayer() {
   return _player;
 }
 
-const ALL_NOTES = [
-  "A0",
-  "Bb0",
-  "B",
-  ...NOTES.map((n) => n + "1"),
-  ...NOTES.map((n) => n + "2"),
-  ...NOTES.map((n) => n + "3"),
-  ...NOTES.map((n) => n + "4"),
-  ...NOTES.map((n) => n + "5"),
-  ...NOTES.map((n) => n + "6"),
-  ...NOTES.map((n) => n + "7"),
-  "C8",
-];
-
-async function setup() {
-  const res = await fetch("./piano.svg");
-  const parsed = new DOMParser().parseFromString(
-    await res.text(),
-    "image/svg+xml",
-  );
-
-  const piano = parsed.querySelector("svg");
-  wrapper.append(piano);
-  writeMessage("Loaded Piano");
-
-  // const some = new DigitalPiano(piano)
-
-  return { piano };
-}
-
 // One-time setup to load the SVG into the DOM so it can be accessed via JavaScript
-const { piano } = await setup();
+const piano = await DigitalPiano.create("./piano.svg");
+wrapper.append(piano.svg);
+writeText("Loaded Piano");
 
-// Listen for clicks on the keys
-for (const key of piano.querySelectorAll("rect")) {
-  key.addEventListener("click", () => {
-    toggle(key.id);
-    writeMessage("Picked: " + key.id);
-    getPlayer().playNote(getFrequency(key.id));
-  });
-}
+piano.onkeydown = (note) => {
+  writeText("Picked: " + note);
+  piano.select(note);
+  getPlayer().playNote(note);
+};
 
-// Listen for the random button
-random.addEventListener("click", () => {
-  const note = ALL_NOTES[Math.floor(Math.random() * ALL_NOTES.length)];
-  clear();
-  select(note);
-  getPlayer().playNote(getFrequency(note));
-});
+piano.onkeyup = (note) => {
+  piano.deselect(note);
+};
 
 // Connect to Web MIDI
 connect.addEventListener("click", async () => {
-  const state = await navigator.permissions.query({
-    name: "midi",
-    sysex: true,
-  });
+  const result = await Midi.connect();
 
-  if (state.state === "denied") {
-    writeMessage("MIDI denied");
-    return;
+  if (result.state === "denied") {
+    return writeText("MIDI denied");
   }
 
-  try {
-    midi = await navigator.requestMIDIAccess();
-    writeMessage("MIDI Connected");
-
-    midi.onstatechange = (ev) => console.debug("midi@state", ev);
-
-    midi.inputs.forEach((input) => {
-      console.debug(input);
-      writeMessage(`Device: ${input.name} - ${input.id} `);
-      input.onmidimessage = onMidiEvent;
-    });
-
-    connect.setAttribute("disabled", true);
-    midiState.textContent = "MIDI: Connected";
-  } catch (error) {
-    writeMessage("MIDI failed - maybe restart your browser");
+  if (result.state === "error") {
+    console.error(result.error);
+    return writeText("MIDI failed - maybe restart your browser");
   }
+
+  if (result.state !== "success") return;
+  midi = result.midi;
+
+  midi.oninput = (input) => {
+    writeText(`Found input: ${input.name} - ${input.manufacturer}`);
+  };
+
+  midi.onmidi = (message) => {
+    // https://inspiredacoustics.com/en/MIDI_note_numbers_and_center_frequencies
+    const note = piano.notes[message.note - 21];
+    if (!note) return;
+
+    if (message.command === MIDI_DOWN) {
+      piano.select(note);
+      getPlayer().playNote(note);
+    } else if (message.command === MIDI_UP) {
+      piano.deselect(note);
+    }
+  };
+
+  connect.setAttribute("disabled", true);
+  connect.textContent = "Connected";
+  midiState.textContent = "MIDI: Connected";
 });
 
-/**
- * Parse basic information out of a MIDI message
- * ~ https://stackoverflow.com/q/40902864
- */
-function parseMidiMessage(data) {
-  return {
-    command: data[0] >> 4,
-    channel: data[0] & 0xf,
-    note: data[1],
-    velocity: data[2] / 127,
-  };
-}
-
-/** @param {MIDIMessageEvent} event */
-function onMidiEvent(event) {
-  const message = parseMidiMessage(event.data);
-
-  // https://inspiredacoustics.com/en/MIDI_note_numbers_and_center_frequencies
-  const note = ALL_NOTES[message.note - 21];
-
-  if (!note) return;
-
-  if (message.command === MIDI_DOWN) {
-    select(note);
-    getPlayer().playNote(getFrequency(note));
-  } else if (message.command === MIDI_UP) deselect(note);
-  // else console.log(message);
-}
-
-// Get a <rect> element from a piano key name
-function getKey(key) {
-  return piano.querySelector(`rect#${key}`);
-}
-
-// Clear all key selections
-function clear() {
-  for (const key of piano.querySelectorAll("rect")) {
-    delete key.dataset.selected;
-  }
-}
-
-// Unselect a specific key
-function deselect(key) {
-  const elem = getKey(key);
-  if (elem) delete elem.dataset.selected;
-}
-
-// Highlight a specific key
-function select(key) {
-  const elem = getKey(key);
-  if (elem) elem.dataset.selected = "true";
-}
-
-// Toggle a key
-function toggle(key) {
-  const elem = getKey(key);
-  if (!elem) return;
-
-  if (elem.dataset.selected) {
-    delete elem.dataset.selected;
-  } else {
-    clear();
-    elem.dataset.selected = "true";
-  }
-}
-
 // Output a message to the <pre> element
-function writeMessage(text) {
+function writeText(text) {
   output.textContent += text + "\n";
 }
