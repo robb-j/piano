@@ -16,7 +16,7 @@ const MIDI_UP = 8;
 
 const KEYBOARD = {
   offset: 3 + 12 * 3, // C4
-  keys: "awsedftgyhjikolp;",
+  keys: "awsedftgyhujkolp;",
 };
 
 let _player = null;
