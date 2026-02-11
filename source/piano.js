@@ -35,7 +35,7 @@ export class DigitalPiano {
   notes = [
     "A0",
     "Bb0",
-    "B",
+    "B0",
     ...OCTAVE.map((n) => n + "1"),
     ...OCTAVE.map((n) => n + "2"),
     ...OCTAVE.map((n) => n + "3"),

@@ -5,7 +5,6 @@ import { DigitalPiano } from "./piano.js";
 // Common HTML elements
 const wrapper = document.getElementById("wrapper");
 const output = document.getElementById("output");
-const random = document.getElementById("random");
 const connect = document.getElementById("connect");
 const midiState = document.getElementById("midiState");
 
@@ -15,12 +14,22 @@ let midi = null;
 const MIDI_DOWN = 9;
 const MIDI_UP = 8;
 
+const KEYBOARD = {
+  offset: 3 + 12 * 3, // C4
+  keys: "awsedftgyhjikolp;",
+};
+
 let _player = null;
 
 /** @returns {Player} */
 function getPlayer() {
   if (!_player) _player = new Player();
   return _player;
+}
+
+// Output a message to the <pre> element
+function writeText(text) {
+  output.textContent += text + "\n";
 }
 
 // One-time setup to load the SVG into the DOM so it can be accessed via JavaScript
@@ -35,6 +44,25 @@ piano.onkeydown = (note) => {
 };
 
 piano.onkeyup = (note) => {
+  piano.deselect(note);
+};
+
+window.onkeydown = (event) => {
+  const index = KEYBOARD.keys.indexOf(event.key.toLowerCase());
+  if (index === -1) return;
+
+  const note = piano.notes[KEYBOARD.offset + index];
+  if (!note) return;
+  piano.select(note);
+  getPlayer().playNote(note);
+};
+
+window.onkeyup = (event) => {
+  const index = KEYBOARD.keys.indexOf(event.key.toLowerCase());
+  if (index === -1) return;
+
+  const note = piano.notes[KEYBOARD.offset + index];
+  if (!note) return;
   piano.deselect(note);
 };
 
@@ -75,8 +103,3 @@ connect.addEventListener("click", async () => {
   connect.textContent = "Connected";
   midiState.textContent = "MIDI: Connected";
 });
-
-// Output a message to the <pre> element
-function writeText(text) {
-  output.textContent += text + "\n";
-}
