@@ -13,4 +13,5 @@ svg [aria-pressed="true"] {
 svg {
   max-width: calc(100vw - 1em);
   height: auto;
+  touch-action: manipulation;
 }
